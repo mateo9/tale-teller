@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParse = require('body-parser');
 const graphQlHttp = require('express-graphql');
-const { buildSchema } = require('graphql')
-const db = require('./config/database')
-
+const { buildSchema } = require('graphql');
+const db = require('./config/database');
+const User = require('./models/User');
 
 const app = express();
 
@@ -28,19 +28,31 @@ app.use('/graphql', graphQlHttp({
       date: String!
     }
 
+    type User {
+      id: ID!
+      user_name: String!
+      first_name: String!
+      last_name: String!
+      email: String!
+      password: String
+      avatar: String
+    }
+
     type RootQuery {
       events: [Event!]!
     }
 
-    input EventInput {
-      title: String!
-      description: String!
-      price: Float!
-      date: String!
+    input UserInput {
+      user_name: String!
+      first_name: String!
+      last_name: String!
+      email: String!
+      password: String!
+      avatar: String
     }
 
     type RootMutation {
-      createEvent(eventInput: EventInput): Event
+      createUser(userInput: UserInput): User
     }
 
     schema {
@@ -49,12 +61,18 @@ app.use('/graphql', graphQlHttp({
     }
   `),
   rootValue: {
-    events: () => {
-      return ['Testing', 'Testing'];
-    },
-    createEvent: (args) => {
-      const eventName = args.name;
-      return eventName
+    createUser: args => {
+      let user = User.create({
+        user_name: args.userInput.user_name,
+        first_name: args.userInput.first_name,
+        last_name: args.userInput.last_name,
+        email: args.userInput.email,
+        password: args.userInput.password,
+        avatar: args.userInput.avatar
+      }).then((user) => {
+        console.log('tu sam');
+        console.log(user);
+      });
     }
   },
   graphiql: true
