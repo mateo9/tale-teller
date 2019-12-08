@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon ./src/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +13,10 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
-    "graphql": "^14.5.8"
+    "graphql": "^14.5.8",
+    "pg": "^7.14.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.1"
