@@ -6,7 +6,7 @@ export const validUsername = (username, errors) => {
     } else if(/\s/.test(username)) {
       errors.username = 'Username can\'t contain whitespace'
     } else {
-      return;
+      errors.username = ''
     }
 
     return errors;
@@ -16,12 +16,14 @@ export const validUsername = (username, errors) => {
     if(email.length === 0) {
       errors.email = 'Can\'t be blank';
       return errors;
+    } else {
+      errors.email = '';
     }
 
     var emailRegEx = /\S+@\S+\.\S+/;
     const isValid = emailRegEx.test(email);
     if(isValid) {
-      return;
+      errors.email = '';
     } else {
       errors.email = 'Invalid email format';
     }
@@ -32,10 +34,13 @@ export const validUsername = (username, errors) => {
   export const passwordValidation = (password, confirmPassword, errors) => {
     if(password.length <= 5) {
       errors.password = 'Password must be at least 6 characters long'
-    } else if (password !== confirmPassword) {
+    } else {
+      errors.password = ''
+    }
+    if (password !== confirmPassword) {
       errors.confirmPassword = 'Password don\'t match'
     } else {
-      return;
+      errors.confirmPassword = '';
     }
 
     return errors;

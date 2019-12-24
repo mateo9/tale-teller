@@ -28,7 +28,6 @@ class UserRegistration extends Component {
     const password        = this.passwordElement.current.value;
     const confirmPassword = this.confirmPasswordElement.current.value;
 
-
     this.setState({errors: validUsername(username, errors)});
     this.setState({errors: validEmail(email, errors)});
     this.setState({errors: passwordValidation(password, confirmPassword, errors)});
