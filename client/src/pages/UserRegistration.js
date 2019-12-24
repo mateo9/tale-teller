@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { validUsername, validEmail, passwordValidation } from '../Helpers/OuthHelpers.js'
+import { validUsername, validEmail, passwordValidation, isFormValid } from '../Helpers/OuthHelpers.js'
 
 import '../style/RegistrstionPage.css';
 
@@ -31,6 +31,10 @@ class UserRegistration extends Component {
     this.setState({errors: validUsername(username, errors)});
     this.setState({errors: validEmail(email, errors)});
     this.setState({errors: passwordValidation(password, confirmPassword, errors)});
+
+    if(!isFormValid(errors)) {
+      return;
+    }
   }
 
   render() {
