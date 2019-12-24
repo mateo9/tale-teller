@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { validUsername, validEmail, passwordValidation } from '../Helpers/OuthHelpers.js'
 
 import '../style/RegistrstionPage.css';
 
@@ -9,83 +10,57 @@ class UserRegistration extends Component {
     this.emailElement           = React.createRef();
     this.passwordElement        = React.createRef();
     this.confirmPasswordElement = React.createRef();
+    this.state = {
+      errors: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
+    }
   }
 
   handleRegistration = (e) => {
     e.preventDefault();
+    const { errors }      = this.state
     const username        = this.usernameElement.current.value;
     const email           = this.emailElement.current.value;
     const password        = this.passwordElement.current.value;
     const confirmPassword = this.confirmPasswordElement.current.value;
-    const errors = {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    };
 
-    validUsername(username, errors);
-    validEmail(email, errors);
-    passwordValidation(password, confirmPassword, errors);
 
-    console.log(errors);
+    this.setState({errors: validUsername(username, errors)});
+    this.setState({errors: validEmail(email, errors)});
+    this.setState({errors: passwordValidation(password, confirmPassword, errors)});
   }
 
   render() {
+    const { errors } = this.state
     return(
       <form className='registration-form' onSubmit={this.handleRegistration}>
         <div className='form-field'>
           <input type='text' className='registration-field' placeholder='Username' ref={this.usernameElement} />
+          { errors.username.length > 0 &&
+            <span className='error'>{errors.username}</span> }
         </div>
         <div className='form-field'>
           <input type='text' className='registration-field' autoComplete="new-password" placeholder='Email' ref={this.emailElement} />
+          { errors.email.length > 0 &&
+            <span className='error'>{errors.email}</span> }
         </div>
         <div className='form-field form-field-two-inline'>
           <input type='password' className='registration-field' autoComplete="new-password" placeholder='Password' ref={this.passwordElement} />
+          { errors.password.length > 0 &&
+            <span className='error'>{errors.password}</span> }
           <input type='password' className='registration-field' autoComplete="new-password" placeholder='Confirm Password' ref={this.confirmPasswordElement} />
+          { errors.confirmPassword.length > 0 &&
+            <span className='error'>{errors.confirmPassword}</span> }
         </div>
         <div className='form-field form-field-btn-div'>
           <button type='submit' className='main-btn submit-btn'>Register Now</button>
         </div>
       </form>
     )
-  }
-}
-
-const validUsername = (username, errors) => {
-  if(username.length === 0) {
-    errors.username = 'Can\'t be blank';
-  } else if (username.length === 1) {
-    errors.username = 'Username must be greater then one';
-  } else if(/\s/.test(username)) {
-    errors.username = 'Username can\'t contain whitespace'
-  } else {
-    return;
-  }
-}
-
-const validEmail = (email, errors) => {
-  if(email.length === 0) {
-    errors.email = 'Can\'t be blank';
-    return;
-  }
-
-  var emailRegEx = /\S+@\S+\.\S+/;
-  const isValid = emailRegEx.test(email);
-  if(isValid) {
-    return;
-  } else {
-    errors.email = 'Invalid email format';
-  }
-}
-
-const passwordValidation = (password, confirmPassword, errors) => {
-  if(password.length <= 5) {
-    errors.password = 'Password must be at least 6 characters long'
-  } else if (password !== confirmPassword) {
-    errors.confirmPassword = 'Password don\'t match'
-  } else {
-    return;
   }
 }
 
