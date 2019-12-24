@@ -57,6 +57,8 @@ const validUsername = (username, errors) => {
     errors.username = 'Can\'t be blank';
   } else if (username.length === 1) {
     errors.username = 'Username must be greater then one';
+  } else if(/\s/.test(username)) {
+    errors.username = 'Username can\'t contain whitespace'
   } else {
     return;
   }
