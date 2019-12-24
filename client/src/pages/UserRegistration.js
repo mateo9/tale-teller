@@ -39,22 +39,35 @@ class UserRegistration extends Component {
     return(
       <form className='registration-form' onSubmit={this.handleRegistration}>
         <div className='form-field'>
-          <input type='text' className='registration-field' placeholder='Username' ref={this.usernameElement} />
+          <input type='text' className= { errors.username.length > 0 ? 'error-filed registration-field' : 'registration-field' }
+            placeholder='Username' ref={this.usernameElement}
+            />
           { errors.username.length > 0 &&
             <span className='error'>{errors.username}</span> }
         </div>
         <div className='form-field'>
-          <input type='text' className='registration-field' autoComplete="new-password" placeholder='Email' ref={this.emailElement} />
+          <input type='text' className= { errors.email.length > 0 ? 'error-filed registration-field' : 'registration-field' }
+            autoComplete="new-password"
+            placeholder='Email'
+            ref={this.emailElement} 
+            />
           { errors.email.length > 0 &&
             <span className='error'>{errors.email}</span> }
         </div>
         <div className='form-field form-field-two-inline'>
-          <input type='password' className='registration-field' autoComplete="new-password" placeholder='Password' ref={this.passwordElement} />
+          <input type='password' className= { errors.email.length > 0 || errors.confirmPassword > 0  ? 'error-filed registration-field' : 'registration-field' }
+            autoComplete="new-password"
+            placeholder='Password' ref={this.passwordElement}
+            />
+          <input type='password' className= { errors.confirmPassword > 0 ? 'error-filed registration-field' : 'registration-field' }
+            autoComplete="new-password"
+            placeholder='Confirm Password'
+            ref={this.confirmPasswordElement} 
+            />
           { errors.password.length > 0 &&
-            <span className='error'>{errors.password}</span> }
-          <input type='password' className='registration-field' autoComplete="new-password" placeholder='Confirm Password' ref={this.confirmPasswordElement} />
+            <span className='error error-two-field'>{ errors.password }</span> }
           { errors.confirmPassword.length > 0 &&
-            <span className='error'>{errors.confirmPassword}</span> }
+            <span className='error error-two-field'>{ errors.confirmPassword }</span> }
         </div>
         <div className='form-field form-field-btn-div'>
           <button type='submit' className='main-btn submit-btn'>Register Now</button>

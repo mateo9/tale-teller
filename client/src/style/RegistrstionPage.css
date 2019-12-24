@@ -36,6 +36,16 @@
 
 .form-field.form-field-two-inline {
     display: flex;
+    flex-wrap: wrap;
+}
+
+.form-field.form-field-two-inline > input {
+    width: 50%;
+}
+
+.form-field.form-field-two-inline > .error {
+    width: 40%;
+    line-height: 20px;
 }
 
 .submit-btn {
@@ -56,6 +66,19 @@
 .submit-btn:hover {
     border: 1px solid #f5c692;
     background-color: #f5c692;
+}
+
+.error {
+    display: inline-block;
+    color: red;
+    font-size: 15px;
+    font-style: italic;
+    padding-left: 30px;
+    margin-top: .5rem;
+}
+
+.error-filed {
+    border: 1px solid red;
 }
 
 .form-field.form-field-btn-div {
