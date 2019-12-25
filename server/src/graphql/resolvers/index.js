@@ -4,9 +4,7 @@ module.exports =   {
   createUser: async (args) => {
     try {
       let user = await User.create({
-        user_name: args.userInput.user_name,
-        first_name: args.userInput.first_name,
-        last_name: args.userInput.last_name,
+        username: args.userInput.user_name,
         email: args.userInput.email,
         password: args.userInput.password,
         avatar: args.userInput.avatar

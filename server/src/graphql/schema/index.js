@@ -3,9 +3,7 @@ const { buildSchema } = require('graphql');
 module.exports = buildSchema(`
 type User {
   id: ID!
-  user_name: String!
-  first_name: String!
-  last_name: String!
+  username: String!
   email: String!
   password: String
   avatar: String
@@ -16,9 +14,7 @@ type RootQuery {
 }
 
 input UserInput {
-  user_name: String!
-  first_name: String!
-  last_name: String!
+  username: String!
   email: String!
   password: String!
   avatar: String
