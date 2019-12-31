@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
+const Promise = require('bluebird')
+const bcrypt = Promise.promisifyAll(require('bcrypt'))
+
 User = db.define('user', {
   username: {
     type: Sequelize.STRING,
@@ -24,6 +27,12 @@ User = db.define('user', {
   },
   avatar: {
     type: Sequelize.STRING
+  }
+}, {
+  hooks: {
+    afterValidate: (user) => {
+      user.password = bcrypt.hashSync(user.password, 10);
+    }
   }
 });
 
