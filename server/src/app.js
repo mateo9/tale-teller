@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParse = require('body-parser');
 const graphQlHttp = require('express-graphql');
+const cors = require('cors');
 const db = require('./config/database');
 const app = express();
 const graphQlSchema = require('./graphql/schema/index');
@@ -16,6 +17,7 @@ db
   });
 
 app.use(bodyParse.json());
+app.use(cors())
 
 app.use('/graphql', graphQlHttp({
   schema: graphQlSchema,

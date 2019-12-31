@@ -17,7 +17,7 @@ input UserInput {
   username: String!
   email: String!
   password: String!
-  avatar: String
+  confirmPassword: String!
 }
 
 type RootMutation {

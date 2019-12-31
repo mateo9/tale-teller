@@ -4,14 +4,12 @@ module.exports =   {
   createUser: async (args) => {
     try {
       let user = await User.create({
-        username: args.userInput.user_name,
+        username: args.userInput.username,
         email: args.userInput.email,
         password: args.userInput.password,
         avatar: args.userInput.avatar
       })
-      console.log(user)
     } catch(err) {
-      console.log(err)
     }
   }
 }

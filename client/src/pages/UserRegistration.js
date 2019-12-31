@@ -35,6 +35,29 @@ class UserRegistration extends Component {
     if(!isFormValid(errors)) {
       return;
     }
+
+    const requestBody = {
+      query: `
+        mutation {
+          createUser(userInput: { username: "${username}",
+          email: "${email}", password: "${password}",
+          confirmPassword: "${confirmPassword}" }){
+            username
+          }
+        }`
+    };
+
+    (async () => {
+      const res = await fetch('http://localhost:3000/graphql', {
+        method: 'POST',
+        body: JSON.stringify(requestBody),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const json = await res.json();
+      console.log(json);
+    })();
   }
 
   render() {
@@ -52,7 +75,7 @@ class UserRegistration extends Component {
           <input type='text' className= { errors.email.length > 0 ? 'error-filed registration-field' : 'registration-field' }
             autoComplete="new-password"
             placeholder='Email'
-            ref={this.emailElement} 
+            ref={this.emailElement}
             />
           { errors.email.length > 0 &&
             <span className='error'>{errors.email}</span> }
